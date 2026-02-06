@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SaleController;
+use App\Http\Controllers\Api\SupplierController;
+use App\Http\Controllers\Api\SupplyController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,4 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('ventes', SaleController::class);
     Route::apiResource('clients', ClientController::class);
     Route::apiResource('paiements', PaymentController::class);
+    
+    // Gestion des Approvisionnements
+    Route::apiResource('fournisseurs', SupplierController::class);
+    Route::apiResource('approvisionnements', SupplyController::class);
 });

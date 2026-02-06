@@ -167,6 +167,73 @@ Gère les règlements associés à une vente.
 
 ---
 
+## 6. 🏭 Fournisseurs
+
+### Lister les fournisseurs
+- **Méthode** : `GET`
+- **URL** : `/fournisseurs`
+
+### Créer un fournisseur
+- **Méthode** : `POST`
+- **URL** : `/fournisseurs`
+- **Body** :
+  ```json
+  {
+    "nom": "Grossiste Tech",
+    "email": "contact@grossiste-tech.com",
+    "telephone": "0102030405",
+    "adresse": "Zone Industrielle Nord"
+  }
+  ```
+
+### Voir/Modifier/Supprimer
+- **Voir** : `GET /fournisseurs/{id}`
+- **Modifier** : `PUT /fournisseurs/{id}`
+- **Supprimer** : `DELETE /fournisseurs/{id}`
+
+---
+
+## 7. 🚛 Approvisionnements (Achats)
+
+Gère les entrées de stock depuis les fournisseurs.
+
+### Lister les approvisionnements
+- **Méthode** : `GET`
+- **URL** : `/approvisionnements`
+
+### Créer un approvisionnement (Commande)
+Crée la commande fournisseur avec les lignes de produits.
+- **Méthode** : `POST`
+- **URL** : `/approvisionnements`
+- **Body** :
+  ```json
+  {
+    "fournisseur_id": 1,
+    "montant_total": 5000.00,
+    "lignes": [
+      {
+        "produit_id": 1,
+        "quantite": 10,
+        "prix_achat": 500.00
+      }
+    ]
+  }
+  ```
+  *Note: Le statut initial est `pending`.*
+
+### Réceptionner (Valider Stock)
+Pour valider la réception et augmenter le stock des produits.
+- **Méthode** : `PUT`
+- **URL** : `/approvisionnements/{id}`
+- **Body** :
+  ```json
+  {
+    "statut": "received"
+  }
+  ```
+
+---
+
 ## 🗄️ Structure de la Base de Données
 
 1.  **users** : Utilisateurs du système (Vendeurs, Admins).
@@ -175,3 +242,6 @@ Gère les règlements associés à une vente.
 4.  **ventes** : Entête de la facture (Lié à User et Client).
 5.  **lignes_ventes** : Détails de la facture (Produit, Quantité, Prix).
 6.  **paiements** : Historique des encaissements (Lié à Vente).
+7.  **fournisseurs** : Partenaires pour l'approvisionnement.
+8.  **approvisionnements** : Commandes fournisseurs (Lié à Fournisseur).
+9.  **lignes_approvisionnements** : Détails commande (Produit, Quantité, Prix Achat).
